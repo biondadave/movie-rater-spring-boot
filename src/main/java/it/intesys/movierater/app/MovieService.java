@@ -7,8 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.management.Query;
+
 @Service
 public class MovieService {
+
+    public final MovieRepository movieRepository;
+
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     private final Logger logger = LoggerFactory.getLogger(MovieService.class);
 
@@ -18,9 +26,11 @@ public class MovieService {
                 new Movie(2L, "Titanic", "James Cameron"));
     }
 
-    public Long getMovieCount() {
-        return 0L;
-    }
+    /**
+     * if delete will ever be added this won't work anymore
+     * @return
+     */
+    //public Long getMovieCount()
 
     public void vote(Long movieId) {
         logger.info("Add vote for movie {}", movieId);
