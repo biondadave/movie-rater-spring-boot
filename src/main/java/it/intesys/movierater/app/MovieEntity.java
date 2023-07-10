@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "movie")
 public class MovieEntity {
     @Id
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "Title")

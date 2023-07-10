@@ -1,5 +1,8 @@
 package it.intesys.movierater.app;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MovieMapper {
     public Movie toDto (MovieEntity movieEntity){
         Movie movie= new Movie();
