@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieService {
 
@@ -41,7 +43,16 @@ public class MovieService {
         else
         ratedEntity.setRating(currentRating+1);
         movieRepository.save(ratedEntity);
-        //ratedEntity.setRating(ratedEntity.getRating()+1);
-        //logger.info("total vote for movie {}", ratedEntity.getRating());
+        logger.info("total vote for movie {}", ratedEntity.getRating());
     }
+    public Long totalVotes(){
+        List<MovieEntity> entityList=movieRepository.findAll();
+        Long total=0l;
+        for (MovieEntity ratingEntity: entityList) {
+            if (ratingEntity.getRating() != null)
+                total = ratingEntity.getRating() + total;
+        }
+        return total;
+    }
+
 }

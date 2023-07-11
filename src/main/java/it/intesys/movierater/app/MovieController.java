@@ -27,6 +27,11 @@ public class MovieController {
         return movieService.getMovieCount();
     }
 
+    @ModelAttribute(name="totalVotes")
+    public Long totalVotes() {
+        return movieService.totalVotes();
+    }
+
     @PostMapping("/vote")
     public String submitVote(@ModelAttribute Movie movie) {
         movieService.vote(movie.getId());
