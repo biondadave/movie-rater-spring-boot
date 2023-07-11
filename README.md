@@ -18,7 +18,7 @@ il preferito tra i 2. Ogni volta che un utente vota uno dei 2 film l'applicazion
 Per lanciare l'applicazione
 
 ```java
-./mvnw spring-boot:run
+// ./mvnw spring-boot:run
 ``` 
 
 Aprire il browser all'indirizzo 

@@ -9,6 +9,7 @@ public class MovieMapper {
         movie.setId(movieEntity.getId());
         movie.setDirector(movieEntity.getDirector());
         movie.setTitle(movieEntity.getTitle());
+        movie.setRating(movieEntity.getRating());
         return movie;
     }
 
@@ -17,6 +18,7 @@ public class MovieMapper {
         movieEntity.setId(movie.getId());
         movieEntity.setDirector(movie.getDirector());
         movieEntity.setTitle(movie.getTitle());
+        movieEntity.setRating(movie.getRating());
         return movieEntity;
     }
 }

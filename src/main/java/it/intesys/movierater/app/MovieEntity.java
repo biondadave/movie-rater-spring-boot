@@ -30,6 +30,12 @@ public class MovieEntity {
     @Column(name = "Country")
     private String country;
 
+    @Column(name = "Rating")
+    private Integer rating;
+
+
+
+
 
     public Long getId() {
         return id;
@@ -86,4 +92,13 @@ public class MovieEntity {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
 }

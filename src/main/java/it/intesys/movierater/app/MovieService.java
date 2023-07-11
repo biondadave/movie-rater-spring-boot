@@ -5,13 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
-
 @Service
 public class MovieService {
 
     public final MovieRepository movieRepository;
     public final MovieMapper movieMapper;
+
+
     public MovieService(MovieRepository movieRepository, MovieMapper movieMapper) {
         this.movieRepository = movieRepository;
         this.movieMapper = movieMapper;
@@ -21,25 +21,27 @@ public class MovieService {
 
     public Pair<Movie, Movie> get2RandomMovies() {
         Long range= getMovieCount();
-        Random random= new Random();
-        Long rand1= random.nextLong()*range+1;
-        Long rand2= random.nextLong()*range+1;
-
+        Long rand1= (long)(Math.random()*range+1);
+        Long rand2= (long)(Math.random()*(range)+1);
         return Pair.with(
-                movieMapper.toDto(movieRepository.findMovieEntitiesById(rand1)),
-                movieMapper.toDto(movieRepository.findMovieEntitiesById(rand2)));
+               movieMapper.toDto(movieRepository.findMovieEntityById(rand1)),
+               movieMapper.toDto(movieRepository.findMovieEntityById(rand2)));
     }
 
-    /**
-     * if delete will ever be added this won't work anymore
-     * @return
-     */
     public Long getMovieCount(){
-        Movie movie= movieMapper.toDto(movieRepository.findFirstByOrderByIdDesc());
-        return movie.getId();
+        Long total =movieRepository.count();
+        return total;
     }
 
     public void vote(Long movieId) {
-        logger.info("Add vote for movie {}", movieId);
+        MovieEntity ratedEntity =movieRepository.findMovieEntityById(movieId);
+        Integer currentRating=ratedEntity.getRating();
+        if(currentRating==null)
+            ratedEntity.setRating(1);
+        else
+        ratedEntity.setRating(currentRating+1);
+        movieRepository.save(ratedEntity);
+        //ratedEntity.setRating(ratedEntity.getRating()+1);
+        //logger.info("total vote for movie {}", ratedEntity.getRating());
     }
 }

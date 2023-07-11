@@ -7,13 +7,16 @@ public class Movie {
     private String title;
     private String director;
 
+    private Integer rating;
+
     public Movie() {
     }
 
-    public Movie(Long id, String title, String director) {
+    public Movie(Long id, String title, String director, Integer rating ) {
         this.id = id;
         this.title = title;
         this.director = director;
+        this.rating= rating;
     }
 
     public Long getId() {
@@ -38,6 +41,14 @@ public class Movie {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }
 
