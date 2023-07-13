@@ -1,4 +1,4 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.DTO;
 
 public class Movie {
 
@@ -7,12 +7,12 @@ public class Movie {
     private String title;
     private String director;
 
-    private Integer rating;
+    private Long rating;
 
     public Movie() {
     }
 
-    public Movie(Long id, String title, String director, Integer rating ) {
+    public Movie(Long id, String title, String director, Long rating ) {
         this.id = id;
         this.title = title;
         this.director = director;
@@ -43,11 +43,11 @@ public class Movie {
         this.director = director;
     }
 
-    public Integer getRating() {
+    public Long getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Long rating) {
         this.rating = rating;
     }
 }

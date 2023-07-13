@@ -1,4 +1,4 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ public class MovieEntity {
     private String country;
 
     @Column(name = "Rating")
-    private Integer rating;
+    private Long rating;
 
 
 
@@ -93,11 +93,11 @@ public class MovieEntity {
         this.country = country;
     }
 
-    public Integer getRating() {
+    public Long getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Long rating) {
         this.rating = rating;
     }
 

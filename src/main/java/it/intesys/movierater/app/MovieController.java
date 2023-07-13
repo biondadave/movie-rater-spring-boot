@@ -1,5 +1,7 @@
 package it.intesys.movierater.app;
 
+import it.intesys.movierater.app.DTO.Movie;
+import it.intesys.movierater.app.service.MovieService;
 import org.javatuples.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 public class MovieController {
 
     private final MovieService movieService;
+    private final AppStartup appStartup;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, AppStartup appStartup) {
         this.movieService = movieService;
+        this.appStartup = appStartup;
     }
 
     @GetMapping("/")
@@ -24,6 +28,7 @@ public class MovieController {
 
     @ModelAttribute(name="movieCount")
     public Long movieCount() {
+        appStartup.calculateActorsWithLongestCareer();
         return movieService.getMovieCount();
     }
 

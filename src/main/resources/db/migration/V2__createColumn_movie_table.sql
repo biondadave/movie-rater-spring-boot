@@ -1,2 +1,0 @@
-ALTER TABLE movie
-ADD Rating INTEGER;
