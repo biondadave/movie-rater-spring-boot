@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ActorRepository extends JpaRepository<ActorEntity, Long> {
-
+ActorEntity findActorEntityById(Long Id);
 
 }

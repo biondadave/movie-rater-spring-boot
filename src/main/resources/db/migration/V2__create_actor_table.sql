@@ -1,0 +1,6 @@
+CREATE TABLE actor
+(
+    ID INTEGER  PRIMARY KEY ,
+    Actor VARCHAR(100)
+
+);

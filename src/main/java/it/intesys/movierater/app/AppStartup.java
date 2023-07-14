@@ -1,6 +1,10 @@
 package it.intesys.movierater.app;
 
+import it.intesys.movierater.app.domain.ActorEntity;
+import it.intesys.movierater.app.domain.ActorMovieEntity;
 import it.intesys.movierater.app.domain.MovieEntity;
+import it.intesys.movierater.app.repository.ActorMovieRepository;
+import it.intesys.movierater.app.repository.ActorRepository;
 import it.intesys.movierater.app.repository.MovieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +20,16 @@ import static org.hibernate.boot.model.source.internal.hbm.CommaSeparatedStringH
 public class AppStartup {
 
     public final MovieRepository movieRepository;
+    private final ActorRepository actorRepository;
+    private final ActorMovieRepository actorMovieRepository;
 
     private final Logger log = LoggerFactory.getLogger(AppStartup.class);
 
 
-    public AppStartup(MovieRepository movieRepository) {
+    public AppStartup(MovieRepository movieRepository, ActorRepository actorRepository, ActorMovieRepository actorMovieRepository) {
         this.movieRepository = movieRepository;
+        this.actorRepository = actorRepository;
+        this.actorMovieRepository = actorMovieRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -43,17 +51,6 @@ public class AppStartup {
          *
          *                  FUNZIONA SE GLI ANNI SONO DI DISTANZA 1
          */
-    //    List<List<String>> checkdesc, checkasc;
-    //    List<MovieEntity> allmoviesdesc= movieRepository.findAllByOrderByYearDesc();
-//
-    //    for (int i=0; i<allmoviesdesc.size(); i++ ) {
-    //        checkdesc.get(i) = allmoviesdesc.get(i).getActors().split(,);
-    //        checkasc.get(i) = allmoviesdesc.get(allmoviesdesc.size() - i).getActors().split(,);
-    //    //associo la lista dei primi attori a checkdesc, la lista degli ultimi a checkasc
-    //        for(int j=0; checkdesc.get(i)||checkasc.get(i))
-    //            }
-    //        }
-    //    }
         HashMap<String, List<Integer>> map = new HashMap<>();
         List<Integer> yearList = new ArrayList<>();
         Set<String> actors;
@@ -93,18 +90,49 @@ public class AppStartup {
                 attoreScelto = actor;
             }
         }
-        maxActors.add(attoreScelto);
-        max=0;
+            maxActors.add(attoreScelto);
+            max=0;
         }
         for(String topActor: maxActors) {
-            log.info("Calculate actors with longest career \n "+ topActor + map1.get(topActor), "\n");
+            log.info("Calculate actors with longest career \n " + topActor + map1.get(topActor), "\n");
         }
-       // List<Map.Entry<String,Integer>> list =  new ArrayList<Map.Entry<String, Integer>>();
-       // for(String actor: map1.keySet()){
-       //     list.add(actor, map1.get(actor));
+    }
+    public void migrationActor() {
+        Long id=1L;
+        List<MovieEntity> listAllMovie= movieRepository.findAll();
+        List<String> actors= new ArrayList<String>();
+        List<String> allActors= new ArrayList<String>();
+        ActorEntity ae = new ActorEntity();
+        for(MovieEntity iterator: listAllMovie){
+            actors=Arrays.asList((iterator.getActors().split(",")));
+            for(String actor: actors)
+                if(!allActors.contains(actor)) {
+                    ae.setActor(actor);
+                    ae.setId(id);
+                    id++;
+                    actorRepository.save(ae);
+                }
+        }
+    }
+    public void migrationActorMovie(){
+        Long id=1L;
+        List<MovieEntity> listAllMovie= movieRepository.findAll();
+        List<ActorEntity> listAllActors= actorRepository.findAll();
+        List<String> actors= new ArrayList<>();
+        ActorMovieEntity ameMigration= new ActorMovieEntity();
+        for(ActorEntity aIter: listAllActors){
+            ameMigration.setIdactor(aIter.getId());
+            for(MovieEntity mIterator: listAllMovie){
+                actors=Arrays.asList(mIterator.getActors().split(","));
+                if(actors.contains(aIter.getActor())){
+                    ameMigration.setId(id);
+                    ameMigration.setIdmovie(mIterator.getId());
+                    actorMovieRepository.save(ameMigration);
+                    id++;
+                }
 
+            }
 
-
-
+        }
     }
 }

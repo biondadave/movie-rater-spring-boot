@@ -10,14 +10,12 @@ public class ActorMovieEntity {
         @Column(name = "ID")
         private Long id;
 
-        @Column(name = "Actor")
-        private String actor;
+        @Column(name = "Idactor")
+        private long Idactor;
 
         @Column(name = "Idmovie")
-        private Long idmovie;
+        private long Idmovie;
 
-        @Column(name = "Rating")
-        private Long rating;
 
 
         public Long getId() {
@@ -28,28 +26,19 @@ public class ActorMovieEntity {
                 this.id = id;
         }
 
-        public String getActor() {
-                return actor;
+        public long getIdactor() {
+                return Idactor;
         }
 
-        public void setActor(String actor) {
-                this.actor = actor;
+        public void setIdactor(long idactor) {
+                Idactor = idactor;
         }
 
-        public Long getIdmovie() {
-                return idmovie;
+        public long getIdmovie() {
+                return Idmovie;
         }
 
-        public void setIdmovie(Long idmovie) {
-                this.idmovie = idmovie;
+        public void setIdmovie(long idmovie) {
+                Idmovie = idmovie;
         }
-
-        public Long getRating() {
-                return rating;
-        }
-
-        public void setRating(Long rating) {
-                this.rating = rating;
-        }
-
 }

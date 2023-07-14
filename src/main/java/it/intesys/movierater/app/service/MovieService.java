@@ -91,39 +91,10 @@ public class MovieService {
             if (ratingEntity.getRating() != null)
                 total = ratingEntity.getRating() + total;
         }
-        migration();
         return total;
     }
 
-    /**
-     * task 6 copio id in idmovie l'id del film, e associo a ciascun idmovie i diversi attori che ne fanno parte
-     * <p>
-     * mon va auto increment quindi assegno id
-     */
-    public void migration() {
-        ActorMovieEntity migrationActor = new ActorMovieEntity();
-        Set<String> actors;
-
-        List<MovieEntity> migrationList = movieRepository.findAll();
-        Long id = 1L;
-        for (MovieEntity migrationEntity :
-                migrationList) {
-            migrationActor.setIdmovie(migrationEntity.getId());
-            if (migrationEntity.getRating() == null)
-                migrationActor.setRating(0L);
-            else migrationActor.setRating(migrationEntity.getRating());
-            actors = split(migrationEntity.getActors());
-            List<String> actorList = new ArrayList<>(actors);
-            //converting map to list of string
-            for (String actor : actorList) {
-                migrationActor.setId(id);
-                migrationActor.setActor(actor);
-                actorMovieRepository.save(migrationActor);
-                id++;
-            }
-        }
-    }
-
+}
    // public void actorMigration() {
    //     ActorEntity migrationActor = new ActorEntity();
    //     Set<String> actors;
@@ -148,4 +119,3 @@ public class MovieService {
    //         }
    //     }
    // }
-}
